@@ -25,10 +25,6 @@ my_parser.add_argument("-u",
                        action='store_true',
                        help="obtain the latest currencies information")
 
-# Option to show the program version
-# my_parser.add_argument("-v",
-#                        action='version')
-
 # Execute the parse_args() method
 args = my_parser.parse_args()
 
@@ -43,16 +39,13 @@ if update:
     # Insert new records into the database and update the existing records
     insert_records()
     update_records()
-# Check if the input is three characters long
 
 currency_object = Currencies()
-
-# Retrieve all the currencies from the database
-all_currencies = currency_object.get_currencies()
 
 unsupported_currencies = []
 for cur in currency:
     cur = cur.upper()
+    # Check if the input is three characters long
     if not len(cur) == 3:
         print(f"\n{cur} is not a valid ISO-4217 code")
     else:
@@ -64,6 +57,8 @@ for cur in currency:
         else:
             print(f"\n{cur} Currency is supported")
 print("-----------------------------------------")
+# Retrieve all the currencies from the database
+all_currencies = currency_object.get_currencies()
 print(len(all_currencies), "Currencies supported by the application")
 print("-----------------------------------------")
 sys.exit()
