@@ -5,6 +5,7 @@ from sqlite3 import IntegrityError
 
 base_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
+
 class Currencies():
     """
     A class that holds the Country, Currency, ISO_4217_Code
@@ -78,37 +79,9 @@ class Currencies():
     def update_currency(self,data):
         with self.con:
             for i in data:
-                # country,currency,code = i.split(',')
-                # sql = f"UPDATE Currencies SET Currency='{currency}', ISO_4217_Code='{code}' where Country='{country}'"
                 sql = f"UPDATE Currencies SET Currency='{i[1]}', ISO_4217_Code='{i[2]}' where Country='{i[0]}'"
-                self.con.execute(sql)
-#
+                try:
+                    self.con.execute(sql)
+                except Exception as e:
+                    print(e)
 
-# cur = Currencies()
-# # print(cur.get_currency('KS'))
-# print(cur.get_currency('AOA'))
-# print(cur.get_currency('DZD'))
-# new_list = ['Angolasa,Angolan kwanza,AOA', 'Algeria,Algerian dinar,DZD']
-# for d in new_list:
-#     co,na,code = d.split(',')
-#     print(co)
-#     print(na)
-#     print(code)
-# cur.update_currency(new_list)
-# print(cur.get_currency('DZD'))
-# print(cur.get_currency('AOA'))
-# print(cur.get_currencies())
-# print(cur)
-# print("sffd")
-# cur.country = "SD"
-# print(cur)
-# # cur.add_currencies([('Kenyissa','KShil',"KS"),('Kenyiasd','KShil',"KS")])
-# cur.add_currencies([['Ksdvssa','KShil',"KSV"]])
-# d =cur.get_currencies()
-# print("---------")
-# print(d)
-# for i in d:
-#     print(i[2])
-# cur2 = Currencies()
-# cur2.add_currency(['uganda','UG','UGX'])
-# cur2.get_currencies()
