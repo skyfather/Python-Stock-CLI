@@ -44,6 +44,7 @@ print(f"\t{company_name}")
 print("-----------------------------------------")
 if update:
     print("***Fetching the latest currency information***")
+    # Insert new records into the database and update the existing records
     insert_records()
     update_records()
 # Check if the input is three characters long
