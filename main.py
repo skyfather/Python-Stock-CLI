@@ -42,7 +42,6 @@ if update:
 
 currency_object = Currencies()
 
-unsupported_currencies = []
 for cur in currency:
     cur = cur.upper()
     # Check if the input is three characters long
