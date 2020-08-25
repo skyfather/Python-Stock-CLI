@@ -1,18 +1,18 @@
-#Python Stock CLI
+# Python Stock CLI
 A simple CLI apllication developed in Python that takes in an input flag 
 corresponding to the input currency.
-##Technologies
+## Technologies
 The application is developed in Python programming language and
 requires the following dependencies to properly function:
 - python 3.71
 - requests==2.24.0
 - urllib3==1.25.10
-##Ilustration
-###How to build the application
+## Ilustration
+### How to build the application
 Git clone the project. It's recommended that you create a virtual environment
 for Python3 and install the requirements from the `requirements.txt` file via 
 `pip install -r requirements.txt`.
-###How to run the application
+### How to run the application
 Open the terminal or command prompt and navigate to the directory of the project.
 Type a command in the following format `python main.py [options] currency`.
 
@@ -26,7 +26,7 @@ You could replace the `KES` argument with any currency code of your
 choice. The `-u` or `--update` option will fetch the data from the website, create
 the database and populate the table(s).
 
-####Arguments accepted by the CLI
+#### Arguments accepted by the CLI
 + Options
     - `-h` or `--help`. Provides help on the available commands for the CLI.
     - `-u` or `--update`. Updates the database with the latest information from
