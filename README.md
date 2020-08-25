@@ -36,4 +36,5 @@ the database and populate the table(s).
     into the application. The application then displays whether or not the currency
     is supported. 
 
-
+## Status
+The application is still in the development phase.
