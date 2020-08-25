@@ -35,6 +35,9 @@ the database and populate the table(s).
     - `currrency`. The ISO 4217 code for currency that the user inputs
     into the application. The application then displays whether or not the currency
     is supported. 
+    
+The application accepts a single currency code or a list of currencies i.e `python main.py 
+KES CAD USD ` is acceptable.
 
 ## Status
 The application is still in the development phase.
