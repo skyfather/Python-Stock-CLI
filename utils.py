@@ -5,6 +5,8 @@ from db_module.db import Currencies
 
 currency = Currencies()
 url = "https://focusmobile-interview-materials.s3.eu-west-3.amazonaws.com/Cheap.Stocks.Internationalization.Currencies.csv"
+
+
 def insert_records():
     try:
         response = requests.get(url)
@@ -19,6 +21,7 @@ def insert_records():
             print("Adding currencies to the database")
             currency.add_currencies(wrapper)
 
+
 def update_records():
     try:
         response = requests.get(url)
@@ -32,7 +35,3 @@ def update_records():
             wrapper = csv.reader(response.text.split('\n')[1:])
             print("Updating currencies in the database")
             currency.update_currency(wrapper)
-            # print("Adding curreny to the database")
-            # for record in wrapper:
-            #     currency.add_currency(record)
-            # print("Done")
