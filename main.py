@@ -7,7 +7,7 @@ from utils import insert_records, update_records
 company_name = "Cheap Stocks, Inc CLI"
 # create the parser
 my_parser = argparse.ArgumentParser(prog=f"{company_name}",
-                                    usage=f"{company_name} [options] currency",
+                                    # usage=f"{company_name} [options] currency",
                                     description="Stocks CLI for African trade",
                                     epilog="Stay tuned for future updates.")
 # Add the arguments
@@ -18,11 +18,7 @@ my_parser.add_argument("Currency",
                        nargs="+",
                        help="the ISO-4172 currency code i.e USD"
                        )
-# my_parser.add_argument("Try",
-#                        metavar="try",
-#                        type=str,
-#                        help="the Country code"
-#                        )
+
 # Update option to fetch the latest information from the internet
 my_parser.add_argument("-u",
                        "--update",
