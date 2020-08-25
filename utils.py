@@ -4,7 +4,7 @@ from db_module.db import Currencies
 
 
 currency = Currencies()
-url = "https://focusmobile-interview-materials.s3.eu-west-3.amazonaws.com/Cheap.Stocks.Internationalization.Curarencies.csv"
+url = "https://focusmobile-interview-materials.s3.eu-west-3.amazonaws.com/Cheap.Stocks.Internationalization.Currencies.csv"
 def insert_records():
     try:
         response = requests.get(url)
