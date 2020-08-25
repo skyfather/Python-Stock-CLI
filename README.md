@@ -7,7 +7,7 @@ requires the following dependencies to properly function:
 - python 3.71
 - requests==2.24.0
 - urllib3==1.25.10
-## Ilustration
+## Illustration
 ### How to build the application
 Git clone the project. It's recommended that you create a virtual environment
 for Python3 and install the requirements from the `requirements.txt` file via 
