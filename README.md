@@ -1,5 +1,5 @@
 # Python Stock CLI
-A simple CLI apllication developed in Python that takes in an input flag 
+A simple CLI stock application developed in Python that takes in an input flag 
 corresponding to the input currency.
 ## Technologies
 The application is developed in Python programming language and
