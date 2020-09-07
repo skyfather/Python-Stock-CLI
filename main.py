@@ -1,8 +1,6 @@
 import argparse
 import sys
-import random
 from db_module.db import Currencies, Languages
-# from translate import Translator
 from googletrans import Translator
 import stockquotes
 from utils import insert_currency_records, insert_language_records, update_currency_records
