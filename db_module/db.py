@@ -61,6 +61,11 @@ class Currencies():
 
     # Retrieve specified currency information
     def get_currency(self, code):
+        """
+
+        :param code:
+        :return: the currency recordsif the currency exists
+        """
         with self.con:
             query = f"SELECT * FROM Currencies WHERE ISO_4217_Code='{code}'"
             data = self.con.execute(query)
