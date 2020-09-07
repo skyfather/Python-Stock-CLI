@@ -4,19 +4,20 @@ from sqlite3 import IntegrityError
 
 
 base_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+con = sqlite3.connect(os.path.join(base_dir, 'db3.sqlite3'))
 
 
 class Currencies():
     """
     A class that holds the Country, Currency, ISO_4217_Code
     """
-    con = sqlite3.connect(os.path.join(base_dir, 'db3.sqlite3'))
     available_currencies = []
 
     def __init__(self):
         self.country = ""
         self.currency = ""
         self.code = ""
+        self.con = con
 
         # Create a table to hold currency data if the table doesn't exist
         with self.con:
@@ -85,3 +86,63 @@ class Currencies():
                 except Exception as e:
                     print(e)
 
+
+class Languages():
+    """docstring for Languages
+        \nLanguages class holds the Language,ISO 639-1 code details
+    """
+    def __init__(self):
+        self.con = con
+        self.code = ''
+        self.available_languages = []
+
+        with self.con:
+            sql = """
+                CREATE TABLE IF NOT EXISTS Languages (
+                id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+                Language VARCHAR(250) UNIQUE,
+                ISO_639_1_Code VARCHAR(2)
+                );
+            """
+            self.con.execute(sql)
+
+    def __str__(self):
+        return self.code
+
+    def add_language(self,language):
+        with self.con:
+            sql = "INSERT INTO Languages (Language, ISO_639_1_Code) VALUES (?,?)"
+            try:
+                self.con.execute(sql,language)
+            except IntegrityError as ie:
+                print(f"Language {language} already exists in the database")
+            except Exception as e:
+                print(e)
+
+    # Add a list of languages to the database
+    def add_languages(self,languages):
+        with self.con:
+            sql = "INSERT INTO Languages (Language, ISO_639_1_Code) VALUES (?,?)"
+            try:
+                self.con.executemany(sql,languages)
+            except IntegrityError as ie:
+                print(f"Language already exists in the database")
+            except Exception as e:
+                print(e)
+
+ # Retrieve specified language information
+    def get_language(self, code):
+        with self.con:
+            query = f"SELECT * FROM Languages WHERE ISO_639_1_Code='{code}'"
+            data = self.con.execute(query)
+            self.code = data.fetchone()
+            return self.code
+
+    # Retrieve all available currencies' information
+    def get_languages(self):
+        with self.con:
+            query = "SELECT * FROM Languages"
+            data = self.con.execute(query)
+            for language in data:
+                self.available_languages.append(language)
+            return self.available_languages
