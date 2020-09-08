@@ -61,5 +61,9 @@ the database and populate the table(s).
     - `stock`. The stock symbol or ticker symbol for the company which you wish to
     know it's stock price i.e `AAPL`.
 
+##### Example output
+`python main.py AAPL -c KES -l sw`
+![Program screenshot](/images/stock_cli.png)
+
 ## Status
 The application is still in the development phase.
