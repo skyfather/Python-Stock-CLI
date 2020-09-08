@@ -63,6 +63,7 @@ the database and populate the table(s).
 
 ##### Example output
 `python main.py AAPL -c KES -l sw`
+
 ![Program screenshot](/images/stock_cli.png)
 
 ## Status
