@@ -142,7 +142,6 @@ if stock:
                     if not supported_currency:
                         print(f"\n{preferred_currency} is not supported in the application as of now")
                     else:
-                        currency_flag = True # The user's preferred currency is valid and supported in the application
 
                         cr = CurrencyRates()
                         # Currencylayer currency exchange rates
@@ -157,12 +156,16 @@ if stock:
                             except Exception as e:
                                 print("Error in stock conversion: Please ensure you set API_KEY_1 and API_KEY_2 in your.env file appropriately")
                             else:
+                                # The user's preferred currency is valid and supported in the application
+                                currency_flag = True 
                                 # Obtain the conversion rates from EURO to the user's preferred currency
                                 quotes = cr.fixer_conversion(preferred_currency)
                                 print(f"Preferred currency {preferred_currency}, ({supported_currency[2]}), Rate: {quotes}")
                                 # Calculates the resulting stock price
                                 stock_price = stock_price_euro*quotes
                         elif quotes:
+                            # The user's preferred currency is valid and supported in the application
+                            currency_flag = True 
                             print(f"Preferred currency {preferred_currency}, ({supported_currency[2]}), Rate: {quotes}")
                             stock_price = stock_price * quotes
 
@@ -190,7 +193,7 @@ if stock:
                     print(f"{preferred_language} is not supported in the application")
 
             # Assign USD currency if the user's preferred currency is invalid or unsupported in the application
-            if not currency_flag:
+            if currency_flag == False:
                 preferred_currency = "USD"
             print("-----------------------------------------")
             # Displays stock price to two decimal places {:.2f}
