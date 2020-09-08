@@ -15,11 +15,18 @@ requires the following dependencies to properly function:
 - googletrans==3.0.0
 - stockquotes==2.0.0
 
+The project is dependent upon [currencylayer!](https://currencylayer.com/) and [fixer!](https://fixer.io/) APIS to convert currencies.
 ## Illustration
 ### How to build the application
 Git clone the project. It's recommended that you create a virtual environment
 for Python3 and install the requirements from the `requirements.txt` file via 
 `pip install -r requirements.txt`.
+
+Create a `.env` file in the base directory and add your Currencylayer Api and Fixer API to `API_KEY_1` and `API_KEY_2` respectively.
+```
+export API_KEY_1 = YOUR_CURRENCY_LAYER_API_KEY
+export API_KEY_2 = YOUR_FIXER_API_KEY
+```
 
 ### How to run the application
 Open the terminal or command prompt and navigate to the directory of the project.
