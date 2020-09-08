@@ -140,15 +140,22 @@ if stock:
                         print(f"\n{preferred_currency} is not supported in the application as of now")
                     else:
                         currency_flag = True # The user's preferred currency is valid and supported in the application
-                        print(f"Preferred currency {preferred_currency}, ({supported_currency[2]})")
 
                         cr = CurrencyRates()
                         quotes = cr.convert(preferred_currency)
+                        # Fallback to Fixer API for currency conversion
                         if not quotes:
+                            # Obtain the EURO TO USD exchange rate. Fixer API defaults by default uses EURO while our stock_price currency is in USD
+                            euro_to_usd = cr.fixer_conversion("USD")
+                            # Converts the stock_price from USD to EURO
+                            stock_price_euro = stock_price*(1/euro_to_usd)
+                            # Obtain the conversion rates from EURO to the user's preferred currency
                             quotes = cr.fixer_conversion(preferred_currency)
-                            # euro_to_usd = cr.fixer_conversion("USD")
-                            # stock_price = euro_to_usd*stock_price
-                        if quotes:
+                            print(f"Preferred currency {preferred_currency}, ({supported_currency[2]}), Rate: {quotes}")
+                            # Calculates the resulting stock price
+                            stock_price = stock_price_euro*quotes
+                        elif quotes:
+                            print(f"Preferred currency {preferred_currency}, ({supported_currency[2]}), Rate: {quotes}")
                             stock_price = stock_price * quotes
 
             else:
