@@ -105,6 +105,7 @@ if languages_list:
             disp_info = f"{language[0]}, {language[1]}, \t {language[2]}"
             print(disp_info)
 
+# Checks if the user provided stock argument
 if stock:
     print("-----------------------------------------")
     try:
@@ -114,6 +115,7 @@ if stock:
         print(e)
     else:
         try:
+            # Obtains the curent stock price for the provided stock symbol
             stock_price = stockquotes.Stock(stock).current_price
         except stockquotes.StockDoesNotExistError as sde:
             print(f"Stock {stock} does not exist.")
@@ -123,10 +125,11 @@ if stock:
             print("Could not obtain the stock. Please check your internet connection")
         else:
             print("Stock price in USD", stock_price)
-            default_text = f"The current price for {stock} is "  # {stock_price} USD"#247.74 USD"
+            default_text = f"The current price for {stock} is "
 
             # A boolean flag for determining whether the user's preferred currency should be diplayed
             currency_flag = False
+            # Checks if the user provided the preferred currency
             if preferred_currency:
                 preferred_currency = preferred_currency.upper()
                 # Check if the input is three characters long
@@ -142,8 +145,9 @@ if stock:
                         currency_flag = True # The user's preferred currency is valid and supported in the application
 
                         cr = CurrencyRates()
+                        # Currencylayer currency exchange rates
                         quotes = cr.convert(preferred_currency)
-                        # Fallback to Fixer API for currency conversion
+                        # Fallback to Fixer API for currency conversion if Currencylayer API fails
                         if not quotes:
                             # Obtain the EURO TO USD exchange rate. Fixer API defaults by default uses EURO while our stock_price currency is in USD
                             euro_to_usd = cr.fixer_conversion("USD")
@@ -163,11 +167,17 @@ if stock:
                             stock_price = stock_price * quotes
 
             else:
-                preferred_currency = "USD"
+                preferred_currency = "USD" # Default currency
+            
+            # Checks if user provided preferred language
             if preferred_language:
+                # Fetch the language records from the database
                 supported_language = language_object.get_language(preferred_language)
+                # Check for the existence of the user's preferred language in the database
                 if supported_language:
                     print(f"Preferred language {preferred_language}, ({supported_language[1]})")
+                    
+                    # Translate to the user's specified preferred language
                     translator = Translator()
                     try:
                         default_text = translator.translate(default_text, src='en', dest=preferred_language).text
@@ -179,13 +189,13 @@ if stock:
                 else:
                     print(f"{preferred_language} is not supported in the application")
 
-            # Assign USD currency if the user's preferred currency is invlid or unsupported in the application
+            # Assign USD currency if the user's preferred currency is invalid or unsupported in the application
             if not currency_flag:
                 preferred_currency = "USD"
             print("-----------------------------------------")
+            # Displays stock price to two decimal places {:.2f}
             default_text = f"{default_text} {stock_price:.2f} {preferred_currency}"
             print(default_text)
-            # print("---Powered by Google Translate--")
 
 
 print("-----------------------------------------")
