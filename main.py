@@ -147,13 +147,17 @@ if stock:
                         if not quotes:
                             # Obtain the EURO TO USD exchange rate. Fixer API defaults by default uses EURO while our stock_price currency is in USD
                             euro_to_usd = cr.fixer_conversion("USD")
-                            # Converts the stock_price from USD to EURO
-                            stock_price_euro = stock_price*(1/euro_to_usd)
-                            # Obtain the conversion rates from EURO to the user's preferred currency
-                            quotes = cr.fixer_conversion(preferred_currency)
-                            print(f"Preferred currency {preferred_currency}, ({supported_currency[2]}), Rate: {quotes}")
-                            # Calculates the resulting stock price
-                            stock_price = stock_price_euro*quotes
+                            try:
+                                # Converts the stock_price from USD to EURO
+                                stock_price_euro = stock_price*(1/euro_to_usd)
+                            except Exception as e:
+                                print("Error in stock conversion: Please ensure you set API_KEY_1 and API_KEY_2 in your.env file appropriately")
+                            else:
+                                # Obtain the conversion rates from EURO to the user's preferred currency
+                                quotes = cr.fixer_conversion(preferred_currency)
+                                print(f"Preferred currency {preferred_currency}, ({supported_currency[2]}), Rate: {quotes}")
+                                # Calculates the resulting stock price
+                                stock_price = stock_price_euro*quotes
                         elif quotes:
                             print(f"Preferred currency {preferred_currency}, ({supported_currency[2]}), Rate: {quotes}")
                             stock_price = stock_price * quotes
