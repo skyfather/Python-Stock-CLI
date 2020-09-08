@@ -174,6 +174,8 @@ if stock:
                     except Exception as e:
                         print(
                             f"***Failed to translate to {preferred_language}. Check your internet connection and try again later***")
+                    else:
+                        print("\n**Translation Powered by Google Translate API**")
                 else:
                     print(f"{preferred_language} is not supported in the application")
 
