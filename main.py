@@ -18,7 +18,7 @@ my_parser = argparse.ArgumentParser(prog=f"{company_name}",
 my_parser.add_argument("Stock",
                        metavar="stock",
                        type=str,
-                       help="the company's name i.e AAPL"
+                       help="the company's stock symbol i.e AAPL"
                        )
 
 # Update option to fetch the latest information from the internet
@@ -52,7 +52,7 @@ my_parser.add_argument("-c",
 my_parser.add_argument("-l",
                        "--language",
                        action="store",
-                       help="preferred language"
+                       help="preferred language in ISO 639-1 code ---Powered by Google Translate API--"
                        )
 
 # Execute the parse_args() method
@@ -125,6 +125,8 @@ if stock:
             print("Stock price in USD", stock_price)
             default_text = f"The current price for {stock} is "  # {stock_price} USD"#247.74 USD"
 
+            # A boolean flag for determining whether the user's preferred currency should be diplayed
+            currency_flag = False
             if preferred_currency:
                 preferred_currency = preferred_currency.upper()
                 # Check if the input is three characters long
@@ -137,7 +139,8 @@ if stock:
                     if not supported_currency:
                         print(f"\n{preferred_currency} is not supported in the application as of now")
                     else:
-                        print("Preferred currency", preferred_currency)
+                        currency_flag = True # The user's preferred currency is valid and supported in the application
+                        print(f"Preferred currency {preferred_currency}, ({supported_currency[2]})")
 
                         cr = CurrencyRates()
                         quotes = cr.convert(preferred_currency)
@@ -151,16 +154,23 @@ if stock:
             else:
                 preferred_currency = "USD"
             if preferred_language:
-                print("Preferred language", preferred_language)
-                translator = Translator()
-                try:
-                    default_text = translator.translate(default_text, src='en', dest=preferred_language).text
-                except Exception as e:
-                    print(
-                        f"***Failed to translate to {preferred_language}. Check your internet connection and try again later***")
-                # default_text = "" translate the text
+                supported_language = language_object.get_language(preferred_language)
+                if supported_language:
+                    print(f"Preferred language {preferred_language}, ({supported_language[1]})")
+                    translator = Translator()
+                    try:
+                        default_text = translator.translate(default_text, src='en', dest=preferred_language).text
+                    except Exception as e:
+                        print(
+                            f"***Failed to translate to {preferred_language}. Check your internet connection and try again later***")
+                else:
+                    print(f"{preferred_language} is not supported in the application")
 
-            default_text = f"{default_text} {stock_price} {preferred_currency}"
+            # Assign USD currency if the user's preferred currency is invlid or unsupported in the application
+            if not currency_flag:
+                preferred_currency = "USD"
+            print("-----------------------------------------")
+            default_text = f"{default_text} {stock_price:.2f} {preferred_currency}"
             print(default_text)
             # print("---Powered by Google Translate--")
 
